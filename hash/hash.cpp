@@ -18,7 +18,6 @@ int hashFun(int size, long key) {
     return index;
 };
 
-
 void insert() {
     vector<vector<pair<long, string>>> tab;
     
@@ -29,6 +28,7 @@ void insert() {
     cin >> cases;
 
     for (int i = 0; i < cases; i++) {
+        tab.clear();
         while (true) {
             cin >> command;
             if (command == "size") {
@@ -65,15 +65,26 @@ void insert() {
             }
             else if (command == "delete") {
                 cin >> key;
-                int index = hashFun(tab.size(), key);
-                tab[index].clear();
 
+                bool check = false;
+                int tmp = key;
+
+                while (!check) {
+                    int index = hashFun(tab.size(), key);
+
+                    if (key == tab[index][0].first) {
+                        tab[index].clear();
+                        check = true;
+                    }
+                    else {
+                        tmp++;
+                    }
+                }
             }
             else if (command == "stop") {
                 break;
             }
         }
 
-        tab.clear();
     }
 };
